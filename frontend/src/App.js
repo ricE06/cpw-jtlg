@@ -7,6 +7,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
+          Jet Lag the Game: MA$$ACHUSETTS
+        </p>
+        <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
         <a

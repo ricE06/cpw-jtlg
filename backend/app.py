@@ -10,7 +10,7 @@ def index():
 
 
 @app.route("/challenges/<loc>/<challenge_title>")
-def get_challenge(loc: str, challenge_title: str) -> dict[str, str]:
+def get_challenge(loc: str, challenge_title: str) -> dict[str, str|float]:
     """
     Gets a challenge. 
 
@@ -33,9 +33,12 @@ def get_challenge(loc: str, challenge_title: str) -> dict[str, str]:
         loc: the name of the location that has this challenge, case-insensitive
         challenge_title: the internal name of the challenge, also case-insensitive
     Returns:
-        a dictionary with one key, 'challenge', that contains the 
-        challenge text and rules in the markdown file as a string
-        if the challenge exists, otherwise returns a 404 error code
+        a dictionary with keys, 
+            'challenge', that contains the 
+                challenge text and rules in the markdown file as a string
+                if the challenge exists, otherwise returns a 404 error code
+            'multiplier', a float representing the multiplier of this challenge
+                (e.g. 1.5, 2, 3, etc.)
     """
     raise NotImplementedError
 
