@@ -9,3 +9,11 @@ which can be pip-installed:
 ```
 pip install flask
 ```
+
+Also, run 
+
+```
+npm install
+```
+
+to install all node dependencies.
