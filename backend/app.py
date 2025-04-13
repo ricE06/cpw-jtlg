@@ -1,12 +1,14 @@
 import typing
+import json
 from flask import Flask
 
 app = Flask(__name__)  # I think this is right? Should be for single module
+challenges_dict = json.load(open("challenges.json", "r"))  # Load the challenges dictionary from the JSON file
 
 @app.route("/")
 def index():
     # todo: make the homepage and put it into a html file
-    return "<p>Hello, World!</p>" 
+    return "<p>Jet The Lag Game, CPW Edition | Backend Server</p>" 
 
 
 @app.route("/challenges/<loc>/<challenge_title>")
@@ -40,7 +42,26 @@ def get_challenge(loc: str, challenge_title: str) -> dict[str, str|float]:
             'multiplier', a float representing the multiplier of this challenge
                 (e.g. 1.5, 2, 3, etc.)
     """
-    raise NotImplementedError
+    
+    # Check input validity
+    loc = loc.lower()
+    if loc not in challenges_dict:
+        return {"error": "Location not found"}, 404
+    challenge_title = challenge_title.lower()
+    if challenge_title not in challenges_dict[loc]["challenges"]:
+        return {"error": "Challenge not found"}, 404
+    # Get challenge data
+    data = challenges_dict[loc]["challenges"][challenge_title]
+    try:
+        with open(f"challenges/{challenge_title}.md", "r") as f:
+            challenge = f.read()
+    except FileNotFoundError:
+        return {"error": "Challenge file not found"}, 404
+    return {
+        "challenge": challenge,
+        "multiplier": data["multiplier"],
+    }
+
 
 @app.route("/all_challenges/<loc>")
 def get_all_challenges(loc: str) -> dict[str, list[str]]:
@@ -56,4 +77,20 @@ def get_all_challenges(loc: str) -> dict[str, list[str]]:
         a dictionary with one key, 'challenges', that contains a
         list of challenge titles as strings
     """
-    raise NotImplementedError
+    loc = loc.lower()
+    if loc not in challenges_dict:
+        return {"error": "Location not found"}, 404
+    all_location_challenges = challenges_dict[loc]["challenges"]
+    return {
+        "challenges": [
+            {
+                "title": all_location_challenges[challenge_name]["title"],
+                "multiplier": all_location_challenges[challenge_name]["multiplier"],
+                "slug": challenge_name,
+            }
+            for challenge_name in all_location_challenges.keys()
+        ]
+    }
+
+if __name__ == "__main__":
+    app.run("0.0.0.0", debug=True)

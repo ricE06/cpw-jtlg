@@ -1,4 +1,5 @@
 # Run a Test
+Points: 1.0
 
 ## Description
 

@@ -1,0 +1,36 @@
+{
+    "killian": {
+        "location": "Killian Court",
+        "challenges": {
+            "test" : {
+                "title": "Run a Test",
+                "multiplier": 1
+            },
+            "test2" : {
+                "title": "Run a Test 2",
+                "multiplier": 2
+            },
+            "test3" : {
+                "title": "Run a Test 3",
+                "multiplier": 3
+            }
+        }
+    },
+    "simmons": {
+        "location": "Simmons Hall",
+        "challenges": {
+            "test4" : {
+                "title": "Run a Test 4",
+                "multiplier": 4
+            },
+            "test5" : {
+                "title": "Run a Test 5",
+                "multiplier": 5
+            },
+            "test6" : {
+                "title": "Run a Test 6",
+                "multiplier": 6
+            }
+        }
+    }
+}
